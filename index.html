@@ -1,0 +1,178 @@
+<html lang="kr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HyunJun Lee</title>
+    <link rel="stylesheet" href="./style.css">
+    <script>
+        const $ = document.querySelector.bind(document)
+        // 컴퓨터 다크모드 여부에따라 자동으로 다크모드 적용
+        const themeInit = () => {
+            const theme = localStorage.getItem('theme');
+            if(theme=='light' || theme=='dark'){
+                if(theme=='dark'){
+                    $(':root').classList.add('dark');
+                }else{
+                    $(':root').classList.remove('dark');
+                }
+            }else{
+                const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+                if(prefersDarkScheme.matches){
+                    localStorage.setItem('theme', 'dark');
+                    $(':root').classList.add('dark');
+                }else{
+                    localStorage.setItem('theme', 'light');
+                    $(':root').classList.remove('dark');
+                }
+            }
+        }
+        // 다크모드일시 제일 상단 HTML태그에 dark클래스 붙여줌
+        const toggleTheme = () => {
+            const theme = localStorage.getItem('theme');
+            if(!(theme=='light' || theme=='dark')){
+                themeInit()
+                return;
+            }
+            if(theme=='dark'){
+                $(':root').classList.remove('dark');
+                localStorage.setItem('theme', 'light');
+            }else{
+                $(':root').classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+            }
+        }
+        themeInit()
+        window.addEventListener('DOMContentLoaded', () => {
+            const header = $('.top_menu')
+            // 일정 이상 스크롤할 시 상단 메뉴바가 작아짐
+            window.addEventListener('scroll', () => {
+                if(window.scrollY >= 51){
+                    header.classList.add('on')
+                }else{
+                    header.classList.remove('on')
+                }
+            })
+        })
+    </script>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="top_menu">
+                <div class="left_wrap">
+                    <span class="top_menu_item home"><a href="#main" class="logo"><img src="./images/logo.png" alt="로고"></a></span>
+                    <span class="top_menu_item all_menu" onclick="$('.side_menu').classList.add('on');">
+                        <span class="line_wrap">
+                            <span class="line"></span>
+                            <span class="line"></span>
+                            <span class="line"></span>
+                        </span>
+                    </span>
+                    <span class="top_menu_item dropdown_menu">
+                        <span class="menu">포트폴리오</span>
+                        <ul class="dropdown_content">
+                            <li><a href="#BSM" class="option">BSM</a></li>
+                            <li><a href="#SecretApp" class="option">Secret App</a></li>
+                            <li><a href="#RemoteComputer" class="option">Remote Computer</a></li>
+                        </ul>
+                    </span>
+                    <span class="top_menu_item"><a href="https://github.com/leehj050211" class="menu">깃허브</a></span>
+                </div>
+                <div class="right_wrap">
+                    <span class="top_menu_item theme_toggle" onclick="toggleTheme()">
+                        <img src="./images/theme.svg" alt="toggle_theme" class="menu toggle_theme">
+                    </span>
+                    <span class="top_menu_item"><a href="#contact" class="menu">연락처</a></span>
+                </div>
+            </div>
+        </nav>
+        <div class="side_menu">
+            <div class="popup_close_button x_button" onClick="$('.side_menu').classList.remove('on')"></div>
+            <div class="background" onClick="$('.side_menu').classList.remove('on')"></div>
+            <ul onClick="$('.side_menu').classList.remove('on')">
+                <li class="home"><a href="#main" class="logo"><img src="./images/logo.png" alt="로고"></a></li>
+                <li class="menu"><a href="#BSM">BSM</a></li>
+                <li class="menu"><a href="#SecretApp">Secret App</a></li>
+                <li class="menu"><a href="#RemoteComputer">RemoteComputer</a></li>
+                <li class="menu"><a href="#contact">연락처</a></li>
+                <li class="menu"><a href="https://github.com/leehj050211">깃허브</a></li>
+            </ul>
+        </div>
+    </header>
+    <main>
+        <div class="container">
+            <section id="main">
+                <div class="main_text"><h1>HELLO</h1><h2>I'm HyunJun Lee</h2></div>
+                <img src="./images/logo.png" alt="HyunJun Lee" class="main_image">
+            </section>
+            <section id="BSM">
+                <div class="service_wrap">
+                    <div class="name">
+                        <h3>BSM</h3>
+                        <a href="https://bssm.kro.kr" class="service_icon">
+                            <img src="./images/bsm-icon.png" alt="BSM logo">
+                        </a>
+                    </div>
+                    <div class="description">
+                        <p>학교생활을 하면서 학교에 대한 정보가 너무 흩어져있어서</p>
+                        <p>정보들을 한곳에 모아 쉽게 보기 위해 만든 서비스</p>
+                        <p>시간표, 급식, 마이스터 인증제, 상벌점등을 손쉽게 볼 수 있고</p>
+                        <p>재학 중인 다른 학생들과 소통하기 위한 커뮤니티도 존재</p>
+                    </div>
+                </div>
+            </section>
+            <section id="SecretApp">
+                <div class="service_wrap">
+                    <div class="name">
+                        <h3>Secret App</h3>
+                        <a href="https://github.com/leehj050211/Secret-App" class="service_icon">
+                            <img src="./images/SecretApp-icon.png" alt="SecretApp logo">
+                        </a>
+                    </div>
+                    <div class="description">
+                        <p>다른 사람이 내 컴퓨터에 있는 나의 민감한 정보들을 볼 수 없도록</p>
+                        <p>프로그램 창 이름만 적으면 강제로 종료해주는 프로그램</p>
+                    </div>
+                </div>
+            </section>
+            <section id="RemoteComputer">
+                <div class="service_wrap">
+                    <div class="name">
+                        <h3>Remote Computer</h3>
+                        <a href="https://github.com/leehj050211/remote_computer" class="service_icon">
+                            <img src="./images/RemoteComputer-icon.png" alt="RemoteComputer logo">
+                        </a>
+                    </div>
+                    <div class="description">
+                        <p>코드가 들어있는 Arduino Pro Micro를 컴퓨터나 스마트폰에 연결한뒤</p>
+                        <p>전용 앱을 실행하여 원격으로 컨트롤하는 프로그램</p>
+                    </div>
+                </div>
+                <video muted autoplay loop class="bg_video">
+                    <source src="./videos/RemoteComputer.webm" type="video/webm">
+                </video>
+            </section>
+            <section id="contact">
+                <h3>Contact</h3>
+                <div class="contact_wrap">
+                    <div class="contact gmail">
+                        <div class="img">
+                            <img src="./images/gmail.svg" alt="gmail">
+                        </div>
+                        <p>leehj050211@gmail.com</p>
+                    </div>
+                    <div class="contact github">
+                        <div class="img">
+                            <img src="./images/github.svg" alt="github">
+                        </div>
+                        <a href="https://github.com/leehj050211">leehj050211</a>
+                    </div>
+                </div>
+            </section>
+            <footer>
+                <p>Copyright 2022. Lee HyunJun all rights reserved.</p>
+            </footer>
+        </div>
+    </main>
+</body>
+</html>
